@@ -1,11 +1,19 @@
 name: RegionFill
 main: fromgate.regionfill.RegionFill
-version: 0.0.1
+version: 0.0.2
 website: http://www.minecraft-mccity.ru
 author: fromgate, fromgate@gmail.com
-depend: [WorldEdit,WorldGuard]
+authors: [Galaran]
+
+depend: [WorldEdit, WorldGuard]
+
 commands:
-   rgfill:
-      description: Fill region with defined block
-      usage: |
-           /rgfill <world name> <region name> <block id>
+    rgfill:
+        description: Fill region with defined block id
+        permission: regionfill.fillcommand
+        permission-message: You do not have permission
+        usage: /<command> <world name> <region name> <block id>
+
+permissions:
+    regionfill.fillcommand:
+        default: op
