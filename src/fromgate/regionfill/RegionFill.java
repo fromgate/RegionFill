@@ -1,20 +1,13 @@
 package fromgate.regionfill;
 
 import com.sk89q.worldguard.bukkit.WorldGuardPlugin;
-import com.sk89q.worldguard.protection.ApplicableRegionSet;
 import com.sk89q.worldguard.protection.regions.ProtectedRegion;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.World;
-import org.bukkit.block.Block;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
-import org.bukkit.event.Cancellable;
-import org.bukkit.event.EventHandler;
-import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
-import org.bukkit.event.block.BlockBreakEvent;
-import org.bukkit.event.block.BlockPlaceEvent;
 import org.bukkit.plugin.Plugin;
 import org.bukkit.plugin.java.JavaPlugin;
 
@@ -23,36 +16,9 @@ public class RegionFill extends JavaPlugin implements Listener {
     private WorldGuardPlugin worldGuard;
     private boolean wgActive = false;
 
-    private static final String RG_BYPASS_PREFIX = "_fb_"; // force build
-
     @Override
     public void onEnable() {
         connectWorldGuard();
-        if (wgActive) {
-            getServer().getPluginManager().registerEvents(this, this);
-        }
-    }
-
-    @EventHandler(priority = EventPriority.HIGHEST)
-    public void onBlockBreak(BlockBreakEvent event) {
-        checkForceBuild(event.getBlock(), event);
-    }
-
-    @EventHandler(priority = EventPriority.HIGHEST)
-    public void onBlockPlace(BlockPlaceEvent event) {
-        checkForceBuild(event.getBlock(), event);
-    }
-
-    private void checkForceBuild(Block block, Cancellable event) {
-        if (!event.isCancelled()) return;
-
-        ApplicableRegionSet regions = worldGuard.getRegionManager(block.getWorld()).getApplicableRegions(block.getLocation());
-        for (ProtectedRegion curRegion : regions) {
-            if (curRegion.getId().startsWith(RG_BYPASS_PREFIX)) {
-                event.setCancelled(false);
-                return;
-            }
-        }
     }
 
     @Override
