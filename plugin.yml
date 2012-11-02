@@ -1,6 +1,6 @@
 name: RegionFill
 main: fromgate.regionfill.RegionFill
-version: 0.0.2
+version: 0.1
 website: http://www.minecraft-mccity.ru
 author: fromgate, fromgate@gmail.com
 authors: [Galaran]
@@ -9,11 +9,16 @@ depend: [WorldEdit, WorldGuard]
 
 commands:
     rgfill:
-        description: Fill region with defined block id
-        permission: regionfill.fillcommand
+        description: Fill region with defined block id and data
+        permission: regionfill.command
         permission-message: You do not have permission
-        usage: /<command> <world name> <region name> <block id>
+        usage: /<command> <world name> <region id> <block id>[:data]
+    rgreplace:
+        description: Replace blocks in region region
+        permission: regionfill.command
+        permission-message: You do not have permission
+        usage: /<command> <world name> <region id> <from_id>[:data] <to_id>[:data]
 
 permissions:
-    regionfill.fillcommand:
+    regionfill.command:
         default: op
